@@ -6,9 +6,7 @@ var route = require('./route.js'); 
 		body += chunk;
 	}); 
 
-	req.on('end', function() { 
-		route.route(req, res, body); 
-	}); 
+	route.route(req, res, body); 
  
  
 } 

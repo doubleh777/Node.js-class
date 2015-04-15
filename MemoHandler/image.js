@@ -8,7 +8,8 @@ var image_dir = "./image/";
 
 exports.upload = function(req, res, body) {
     var form = new formidable.IncomingForm();
-
+    var files = [];
+    var fields = [];
     console.log(req.method);
     form.uploadDir = image_dir;
     form.keepExtensions = true;
@@ -21,8 +22,6 @@ exports.upload = function(req, res, body) {
         console.log('Successfully inserted: ' + JSON.stringify(files));
         res.end(JSON.stringify(files));
     });
-
-
 }
 
 exports.download = function(req, res, body) {
