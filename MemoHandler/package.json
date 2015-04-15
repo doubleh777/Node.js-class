@@ -12,6 +12,7 @@
   "dependencies": {
     "formidable": "^1.0.17",
     "fs": "0.0.2",
+    "mime": "^1.3.4",
     "mongodb": "^2.0.27",
     "nedb": "^1.1.2",
     "path": "^0.11.14",
