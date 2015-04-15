@@ -10,6 +10,11 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "nedb": "^1.1.2"
+    "formidable": "^1.0.17",
+    "fs": "0.0.2",
+    "mongodb": "^2.0.27",
+    "nedb": "^1.1.2",
+    "path": "^0.11.14",
+    "util": "^0.10.3"
   }
 }

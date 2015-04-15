@@ -1,4 +1,5 @@
 var memoHandler = require('./memo_handler.js'); 
+var image = require('./image.js');
 var url = require('url');   
 
 exports.route = (function() { 
@@ -10,6 +11,11 @@ exports.route = (function() { 
 		PUT: memoHandler.update, 
 		DELETE: memoHandler.remove 
 	};   
+
+	handlers['/image'] = {
+		POST: image.upload,
+		GET : image.download
+	}
  
 	function route(req, res, body) { 
 		var pathname = url.parse(req.url).pathname; 
@@ -17,7 +23,7 @@ exports.route = (function() { 
 		 
 		if(typeof handlers[pathname][method] === 'function') {
 			  handlers[pathname][method](req, res, body); 
-		} else { 
+		}else { 
 			res.writeHead(404, {"Content-Type": "text/plain"}); 
 			res.write('pathname error'); 
 			res.end(); 

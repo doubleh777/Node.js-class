@@ -1,11 +1,3 @@
-{"author":"park","memo":"test memo !!","date":{"$$date":1428228987523},"_id":"i6pD3p1dJnRATkT5"}
-{"date":{"$$date":1428229034926},"_id":"bdoBc6XDFK2ymd5I"}
-{"date":{"$$date":1428229056318},"_id":"odpy8UrNYCSPeAKR"}
-{"author":"park","memo":"test memo !!","date":{"$$date":1428229087569},"_id":"V95kMt3IdqC3dzdA"}
-{"$$deleted":true,"_id":"V95kMt3IdqC3dzdA"}
-{"$$deleted":true,"_id":"bdoBc6XDFK2ymd5I"}
-{"$$deleted":true,"_id":"i6pD3p1dJnRATkT5"}
-{"$$deleted":true,"_id":"odpy8UrNYCSPeAKR"}
-{"author":"park","memo":"test memo !!","date":{"$$date":1428229116624},"_id":"rcqyK7ttiMdk3hz2"}
-{"author":"park","memo":"update memo!!","date":{"$$date":1428229116624},"_id":"rcqyK7ttiMdk3hz2"}
-{"$$deleted":true,"_id":"rcqyK7ttiMdk3hz2"}
+{"author":"park","memo":"test memo !!","date":{"$$date":1428654227139},"_id":"WQnQ6MM8TRLJRKot"}
+{"author":"park","memo":"test memo !!","date":{"$$date":1428654565291},"_id":"bm79C7iHIEad6dYZ"}
+{"author":"park","memo":"test memo !!","date":{"$$date":1428654575597},"_id":"NblXjRHgMEWV9OyV"}

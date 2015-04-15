@@ -1,10 +1,7 @@
-var DataStore = require('nedb');
-var db = new DataStore({
-    filename: './data/memo',
-    autoload: true
-});
+var MongoClient = require('mongodb').MongoClient;
+
 var querystring = require('querystring');
-var url = require('url');
+var url = 'mongodb://localhost:27017/memo'
 
 exports.create = function(req, res, body) { 
     _insertMemo(body, function(err, result) {
@@ -16,7 +13,9 @@ exports.create = function(req, res, body) { 
     }) ;
 };  
 exports.read = function(req, res, body) { 
-    _findMemo(body, function(err, results) {
+    var where = {};
+
+    _findMemo(where, function(err, results) {
         res.writeHead(200, {
             "Content-Type": "application/json"
         }); 
@@ -26,8 +25,7 @@ exports.read = function(req, res, body) { 
 
 };  
 exports.update = function(req, res, body) { 
-    var query = url.parse(req.url).query;
-    var where = querystring.parse(query);
+    var where = req.query;
 
     _updateMemo(where, body, function(err, results) {
         res.writeHead(200, {
@@ -38,8 +36,7 @@ exports.update = function(req, res, body) { 
     });
 };  
 exports.remove = function(req, res, body) { 
-    var query = url.parse(req.url).query;
-    var where = querystring.parse(query);
+    var where = req.query;
 
     _removeMemo(where, function(err, results) {
         res.writeHead(200, {
@@ -59,19 +56,58 @@ function _insertMemo(body, callback){
 		date : new Date()
 	};
 
-	db.insert(memo, callback);
+	MongoClient.connect(url, function(err, db){
+        if(err) throw err;
+
+        db.collection('memoes').insert(memo, function(err, inserted){
+            if(err) throw err;
+
+            console.log("Successfully inserted: " + JSON.stringify(memo));
+            db.close();
+            callback(null, inserted);
+        });
+    });
 }
 
 function _findMemo(where, callback){
 	where = where || {};
-	db.find(where, callback);
+	
+    MongoClient.connect(url, function(err, db){
+        if(err) throw err;
+
+        db.collection('memoes').find(where).toArray(function(err, docs){
+            if(err) throw err;
+
+            db.close();
+            callback(null, docs);
+        });
+    });
 }
 
 function _updateMemo(where, body, callback){
 	body = typeof body === 'string' ? JSON.parse(body) : body;
-	db.update(where, {$set: body}, {multi: true}, callback);
+	
+    MongoClient.connect(url, function(err, db){
+        if(err) throw err;
+
+        db.collection('memoes').update(where,{$set:body}, {strict:true}, function(err, updated){
+            if(err) throw err;
+            console.log("Successfully updated: " + updated);
+
+            db.close();
+            callback(null, updated);
+        });
+    });
 }
 
 function _removeMemo(where, callback){
-	db.remove(where, {multi: true}, callback);
+    MongoClient.connect(url, function(err, db){
+        if(err) throw err;
+        db.collection('memoes').remove(where,{strict:true},function(err, removed){
+            if(err) throw err;
+            console.log("Successfully deleted: " + removed);
+            db.close();
+            callback(null, removed);
+        });
+    });
 }
